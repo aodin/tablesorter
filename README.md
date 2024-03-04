@@ -5,7 +5,7 @@ Native JS tablesorter
 Install with:
 
 ```
-npm i @aodin@tablesorter
+npm i @aodin/tablesorter
 ```
 
 A minified JS file and map is included in the `dist` directory.

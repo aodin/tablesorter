@@ -1,5 +1,5 @@
 {
-  "name": "tablesorter",
+  "name": "@aodin/tablesorter",
   "version": "1.0.0",
   "description": "Native JS tablesorter",
   "main": "src/tablesorter.js",
