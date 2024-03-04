@@ -25,10 +25,11 @@ export function preferDatasetValue(elem) {
 }
 
 export class Table {
-  constructor(elem, window = window) {
+  constructor(elem, _window = window) {
     this.rows = [];
+    this.types = [];
     const thead = elem.querySelector("thead");
-    if (!thead) return; // If there's no thead, do nothing
+    if (!thead) return; // Sorting requires a thead
 
     this.tbody = elem.querySelector("tbody");
     this.rows = Array.from(this.tbody.querySelectorAll("tr"));
@@ -57,6 +58,9 @@ export class Table {
       // If no type was matched, use the last available type
       if (!t) t = types[types.length - 1];
 
+      // Save the type
+      this.types[col] = t;
+
       // Add the event listener
       header.addEventListener("click", () => {
         // If there is already a sorting class, invert that, otherwise use default
@@ -73,11 +77,13 @@ export class Table {
         // Add the correct classes to the clicked header
         header.classList.add("active");
         asc ? header.classList.add("asc") : header.classList.add("desc");
-        this.sort(col, t, asc);
+        this.sortWithType(col, asc, t);
 
         // Dispatch an event whenever the table is sorted
-        if (window) {
-          const event = new window.Event("sort", { detail: { col, asc } });
+        if (_window) {
+          const event = new _window.CustomEvent("sort", {
+            detail: { col, asc },
+          });
           elem.dispatchEvent(event);
         }
       });
@@ -91,7 +97,18 @@ export class Table {
     return preferDatasetValue(elem);
   }
 
-  sort(col, type, asc) {
+  sort(col, asc = true) {
+    this.sortWithType(col, asc, this.types[col]);
+  }
+
+  sortAsc(col) {
+    this.sort(col, true);
+  }
+  sortDesc(col) {
+    this.sort(col, false);
+  }
+
+  sortWithType(col, asc, type) {
     // Sorts the table using the given column, type, and direction
     const sorted = this.rows.sort((a, b) => {
       const va = type.filter(this.getValue(a.children[col]));

@@ -1,24 +1,29 @@
 // Example tablesorter styles
 .tablesorter {
-  thead th {
-    cursor: pointer;
-  }
+	thead {
+		th {
+			&:not(.no-sort) {
+				cursor: pointer;
 
-  th.active {
-    color: blue;
-  }
+				&.active {
+					color: white;
+					background-color: steelblue;
+				}
 
-  th:before {
-    content: "";
-  }
+				&:before {
+					content: "";
+				}
 
-  th.desc:before {
-    content: "▼";
-    padding-right: 4px;
-  }
+				&.desc:before {
+					content: "▼";
+					padding-right: 4px;
+				}
 
-  th.asc:before {
-    content: "▲";
-    padding-right: 4px;
-  }
+				&.asc:before {
+					content: "▲";
+					padding-right: 4px;
+				}
+			}
+		}
+	}
 }
