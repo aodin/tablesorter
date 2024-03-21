@@ -1,5 +1,5 @@
 # tablesorter
-Native JS tablesorter
+Use native JS to sort HTML `<table>` elements without dependencies
 
 
 Install with:
@@ -40,12 +40,14 @@ To prevent a column from being sortable, add a `no-sort` class to the `th` eleme
 * About 1kb minified and compressed
 * Module and ES6 export based file structure
 * Simple class-based states: `active`, `asc`, `desc`
-* Reads from either the data attribute `data-value` or HTML inner text
+* Reads from either the data attribute `data-value` or HTML text content
 * Uses local string comparison
 * Default sort for text columns is ascending, default sort for numeric is descending
 * Table fires a `sort` event when sorted, which includes col and asc details
 * Includes example Sass and CSS styles
 * MIT license
+
+For additional example usage, see the [project's wiki](https://github.com/aodin/tablesorter/wiki).
 
 
 ### Development

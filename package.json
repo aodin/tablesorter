@@ -1,6 +1,6 @@
 {
   "name": "@aodin/tablesorter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Native JS tablesorter",
   "main": "src/tablesorter.js",
   "type": "module",
@@ -32,10 +32,10 @@
   },
   "homepage": "https://github.com/aodin/tablesorter#readme",
   "devDependencies": {
-    "esbuild": "^0.20.1",
+    "esbuild": "^0.20.2",
     "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
-    "sass": "^1.71.1",
+    "sass": "^1.72.0",
     "uvu": "^0.5.6"
   }
 }
