@@ -76,6 +76,8 @@ table td, table th {
   </body>
   <script src="tablesorter.min.js"></script>
   <script>
-const table = new tablesorter.Table(document.getElementById("table"));
+const table = document.getElementById("table");
+new tablesorter.Table(table);
+table.addEventListener("sort", (data) => console.log(data.detail));
   </script>
 </html>
