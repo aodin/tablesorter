@@ -1,0 +1,1 @@
+﻿.tablesorter thead th:not(.no-sort){cursor:pointer}.tablesorter thead th:not(.no-sort).active{color:#fff;background-color:#4682b4}.tablesorter thead th:not(.no-sort):before{content:""}.tablesorter thead th:not(.no-sort).desc:before{content:"▼";padding-right:4px}.tablesorter thead th:not(.no-sort).asc:before{content:"▲";padding-right:4px}/*# sourceMappingURL=styles.min.css.map */

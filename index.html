@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <title>@aodin/tablesorter</title>
+    <link rel="stylesheet" href="styles.min.css">
+    <style>
+body {
+  font-family: sans-serif;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+thead {
+  display: table-header-group;
+  text-align: left;
+}
+tr {
+  display: table-row;
+}
+table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  height: 22px;
+}
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+}
+tr {
+  display: table-row;
+}
+table td, table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+    </style>
+  </head>
+  <body>
+    <table id="table" class="tablesorter">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+          <th data-type="numeric">Data</th>
+          <th>Percent</th>
+          <th class="no-sort">No Sort</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>b</td>
+          <td>1.3</td>
+          <td data-value="-10">negative 10</td>
+          <td>0</td>
+          <td>a</td>
+        </tr>
+        <tr>
+          <td>z</td>
+          <td>-40</td>
+          <td data-value="1.3">one point 3</td>
+          <td>-10%</td>
+          <td>b</td>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>4022424</td>
+          <td data-value="4022424">4.022424 * 10**6</td>
+          <td>1,000.50%</td>
+          <td>c</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script src="tablesorter.min.js"></script>
+  <script>
+const table = new tablesorter.Table(document.getElementById("table"));
+  </script>
+</html>
