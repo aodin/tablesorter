@@ -13,12 +13,13 @@ function getValues(elem, col) {
 }
 
 test("Tablesorter", async () => {
-  const window = (await JSDOM.fromFile("./tests/index.html")).window;
+  global.window = (await JSDOM.fromFile("./tests/index.html")).window;
 
-  const elem = window.document.getElementById("table1");
+  const elem = global.window.document.getElementById("table1");
   assert.is.not(elem, null); // HTMLTableElement
 
-  const table = new Table(elem, window);
+  const table = new Table(elem);
+  assert.equal(table.rows.length, 3);
 
   // Get the initial values of the first column
   const values = getValues(elem, 0);

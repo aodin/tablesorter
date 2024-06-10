@@ -25,7 +25,7 @@ export function preferDatasetValue(elem) {
 }
 
 export class Table {
-  constructor(elem, _window = window) {
+  constructor(elem) {
     this.rows = [];
     this.types = [];
     const thead = elem.querySelector("thead");
@@ -80,12 +80,8 @@ export class Table {
         this.sortWithType(col, asc, t);
 
         // Dispatch an event whenever the table is sorted
-        if (_window) {
-          const event = new _window.CustomEvent("sort", {
-            detail: { col, asc },
-          });
-          elem.dispatchEvent(event);
-        }
+        const event = new window.CustomEvent("sort", { detail: { col, asc } });
+        elem.dispatchEvent(event);
       });
 
       // Prevent repeated clicking on headers from selecting them

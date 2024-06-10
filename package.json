@@ -1,6 +1,6 @@
 {
   "name": "@aodin/tablesorter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Native JS tablesorter",
   "main": "src/tablesorter.js",
   "type": "module",
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "uvu tests",
     "fmt": "prettier --write src/tablesorter.js tests/*",
-    "js": "esbuild src/tablesorter.js --bundle --minify --sourcemap --out-extension:.js=.min.js --outdir=dist/ --global-name=tablesorter --target=es2018",
+    "js": "esbuild src/tablesorter.js --bundle --minify --sourcemap --out-extension:.js=.min.js --outdir=dist/ --global-name=tablesorter --target=es2020",
     "css": "sass --load-path=. --style=compressed src/styles.scss ./dist/styles.min.css",
     "build": "npm run fmt && npm run js"
   },
@@ -32,10 +32,10 @@
   },
   "homepage": "https://github.com/aodin/tablesorter#readme",
   "devDependencies": {
-    "esbuild": "^0.20.1",
-    "jsdom": "^24.0.0",
-    "prettier": "^3.2.5",
-    "sass": "^1.71.1",
+    "esbuild": "^0.21.5",
+    "jsdom": "^24.1.0",
+    "prettier": "^3.3.1",
+    "sass": "^1.77.4",
     "uvu": "^0.5.6"
   }
 }
