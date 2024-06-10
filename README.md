@@ -1,5 +1,7 @@
-# tablesorter
-Native JS tablesorter
+tablesorter
+===========
+
+Native JS tablesorter. [View a live example](https://aodin.github.io/tablesorter/).
 
 
 Install with:
@@ -8,7 +10,7 @@ Install with:
 npm i @aodin/tablesorter
 ```
 
-A minified JS file and map is included in the `dist` directory.
+A minified JS file and map is included in the `dist` directory along with optional CSS styles.
 
 
 ### Usage
