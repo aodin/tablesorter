@@ -1,20 +1,31 @@
+const removeCommas = (v) => v.replaceAll(",", "");
+const removePercent = (v) => v.replace(/%$/, "");
+const emptyZeros = (v) => (v === "-" || v === "" ? "0" : v);
+
+// Table data types
+export const numeric = {
+  name: "numeric",
+  filter: (v) => emptyZeros(removeCommas(v)),
+  check: (v) => !isNaN(v),
+  sort: (a, b) => parseFloat(a) - parseFloat(b),
+  defaultAsc: false,
+};
+
+export const percent = Object.assign({}, numeric, {
+  name: "percent",
+  filter: (v) => emptyZeros(removePercent(removeCommas(v))),
+});
+
+export const text = {
+  name: "text",
+  filter: (v) => v,
+  check: (v) => true,
+  sort: (a, b) => a.localeCompare(b),
+  defaultAsc: true,
+};
+
 // Types should be ordered from most specific to most generic
-export const types = [
-  {
-    name: "numeric",
-    filter: (value) => (value === "-" ? "0" : value.replaceAll(",", "")),
-    check: (value) => !isNaN(parseFloat(value)),
-    sort: (a, b) => a - b,
-    defaultAsc: false,
-  },
-  {
-    name: "text",
-    filter: (value) => value,
-    check: (value) => true,
-    sort: (a, b) => a.localeCompare(b),
-    defaultAsc: true,
-  },
-];
+export const types = [percent, numeric, text];
 
 export function preferDatasetValue(elem) {
   // Return the text that should be used for sorting
@@ -59,7 +70,7 @@ export class Table {
       if (!t) t = types[types.length - 1];
 
       // Save the type
-      this.types[col] = t;
+      this.types[col] = this.detect(header, col);
 
       // Add the event listener
       header.addEventListener("click", () => {
@@ -80,13 +91,36 @@ export class Table {
         this.sortWithType(col, asc, t);
 
         // Dispatch an event whenever the table is sorted
-        const event = new window.CustomEvent("sort", { detail: { col, asc } });
+        const event = new window.CustomEvent("sort", {
+          detail: { col, asc },
+        });
         elem.dispatchEvent(event);
       });
 
       // Prevent repeated clicking on headers from selecting them
       header.addEventListener("mousedown", (evt) => evt.preventDefault());
     });
+  }
+
+  detect(header, col) {
+    // To set a column type manually, add a dataset-type with the type name
+    const name = header.dataset.type;
+
+    // Find an appropriate type for the column
+    // The last type is a catchall and doesn't need to be tested
+    let t = types.slice(0, -1).find((type) => {
+      if (name && type.name === name) return true;
+      return this.rows.every((row) => this.checkRow(type, row, col));
+    });
+
+    if (t) return t;
+
+    // If no type was matched, use the last available type
+    return types[types.length - 1];
+  }
+
+  checkRow(type, row, col) {
+    return type.check(type.filter(this.getValue(row.children[col])));
   }
 
   getValue(elem) {
