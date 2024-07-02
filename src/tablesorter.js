@@ -37,6 +37,7 @@ export function preferDatasetValue(elem) {
 
 export class Table {
   constructor(elem) {
+    this.elem = elem;
     this.rows = [];
     this.types = [];
     const thead = elem.querySelector("thead");
@@ -89,12 +90,6 @@ export class Table {
         header.classList.add("active");
         asc ? header.classList.add("asc") : header.classList.add("desc");
         this.sortWithType(col, asc, t);
-
-        // Dispatch an event whenever the table is sorted
-        const event = new window.CustomEvent("sort", {
-          detail: { col, asc },
-        });
-        elem.dispatchEvent(event);
       });
 
       // Prevent repeated clicking on headers from selecting them
@@ -148,6 +143,20 @@ export class Table {
 
     // Append each sorted row to the tbody
     sorted.forEach((row) => this.tbody.appendChild(row));
+
+    // Dispatch an event whenever the table is sorted
+    const evt = new window.CustomEvent("sort", {
+      detail: { col, asc },
+    });
+    this.elem.dispatchEvent(evt);
+  }
+
+  addEventListener(...args) {
+    this.elem.addEventListener(...args);
+  }
+
+  onSort(listener, options) {
+    this.addEventListener("sort", listener, options);
   }
 }
 

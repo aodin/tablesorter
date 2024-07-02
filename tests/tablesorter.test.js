@@ -42,6 +42,14 @@ test("Table", async () => {
   headers[2].click();
   assert.equal(getValues(elem, 2), ["4022424", "1.3", "-10"]);
 
+  // Test events
+  let fired = false;
+  table.onSort((d) => {
+    fired = true;
+  });
+  table.sortAsc(1);
+  assert.equal(fired, true);
+
   // Test subclass
   const list = new List(elem);
   assert.equal(list.rows.length, 3);
