@@ -150,3 +150,7 @@ export class Table {
     sorted.forEach((row) => this.tbody.appendChild(row));
   }
 }
+
+export function New(elem) {
+  return new Table(elem);
+}

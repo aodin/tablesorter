@@ -18,13 +18,13 @@ A minified JS file and map is included in the `dist` directory along with option
 Tables must be initialized before sorting is active.
 
 ```js
-new tablesorter.Table(document.getElementById("table"))
+tablesorter.New(document.getElementById("table"))
 ```
 
 Or to initialize all tables with a certain class, such as `tablesorter`:
 
 ```js
-document.querySelectorAll(".tablesorter").forEach(elem => new tablesorter.Table(elem))
+document.querySelectorAll(".tablesorter").forEach(elem => tablesorter.New(elem))
 ```
 
 Column types can be explicitly set using a `data-type` attribute on the `th` element. For example:
@@ -35,6 +35,13 @@ Column types can be explicitly set using a `data-type` attribute on the `th` ele
 
 To prevent a column from being sortable, add a `no-sort` class to the `th` element.
 
+Sorting can also be performed with the `sortAsc` and `sortDesc` methods:
+
+```js
+const table = tablesorter.New(elem)
+table.sortAsc(1)
+table.sortDesc(1)
+```
 
 ### Project summary
 

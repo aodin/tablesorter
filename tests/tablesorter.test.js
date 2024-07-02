@@ -2,7 +2,10 @@ import { test } from "uvu";
 import * as assert from "uvu/assert";
 import { JSDOM } from "jsdom";
 
-import { Table, preferDatasetValue } from "../src/tablesorter.js";
+import { Table, New, preferDatasetValue } from "../src/tablesorter.js";
+
+// Test subclass
+class List extends Table {}
 
 test.before(async () => {});
 
@@ -12,13 +15,13 @@ function getValues(elem, col) {
   return rows.map((row) => preferDatasetValue(row.children[col]));
 }
 
-test("Tablesorter", async () => {
+test("Table", async () => {
   global.window = (await JSDOM.fromFile("./tests/index.html")).window;
 
   const elem = global.window.document.getElementById("table1");
   assert.is.not(elem, null); // HTMLTableElement
 
-  const table = new Table(elem);
+  const table = New(elem);
   assert.equal(table.rows.length, 3);
 
   // Get the initial values of the first column
@@ -38,6 +41,10 @@ test("Tablesorter", async () => {
   // Test the manual data type
   headers[2].click();
   assert.equal(getValues(elem, 2), ["4022424", "1.3", "-10"]);
+
+  // Test subclass
+  const list = new List(elem);
+  assert.equal(list.rows.length, 3);
 });
 
 test.run();
